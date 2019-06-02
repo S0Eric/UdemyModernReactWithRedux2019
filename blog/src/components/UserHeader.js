@@ -15,7 +15,7 @@ class UserHeader extends React.Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { user: state.users.find(u => u.id === ownProps.userId) };
+  return { user: state.users[ownProps.userId] };
 }
 
 export default connect(mapStateToProps)(UserHeader);
