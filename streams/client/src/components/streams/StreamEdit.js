@@ -18,9 +18,9 @@ class StreamEdit extends React.Component {
     if (this.props.isSignedIn === false)
       history.push('/');
 
-    if (!this.props.stream) {
+    if (!this.props.stream)
       return <div>Loading...</div>;
-    }
+
     return (
       <div>
         <h3>Edit a Stream</h3>
