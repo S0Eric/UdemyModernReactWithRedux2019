@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { createStream } from '../../actions';
-import history from '../../history';
 import StreamForm from './StreamForm';
+import requireAuth from '../requireAuth';
 
 class StreamCreate extends React.Component {
   onSubmit = formValues => {
@@ -10,9 +10,6 @@ class StreamCreate extends React.Component {
   }
 
   render() {
-    if (this.props.isSignedIn === false)
-      history.push('/');
-
     return (
       <div>
         <h3>Create a Stream</h3>
@@ -22,8 +19,4 @@ class StreamCreate extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return { isSignedIn: state.auth.isSignedIn };
-}
-
-export default connect(mapStateToProps, { createStream })(StreamCreate);
+export default connect(null, { createStream })(requireAuth(StreamCreate));

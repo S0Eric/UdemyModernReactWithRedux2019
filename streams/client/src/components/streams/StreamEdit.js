@@ -2,8 +2,8 @@ import _ from 'lodash';
 import React from 'react';
 import { connect } from 'react-redux';
 import { fetchStream, editStream } from '../../actions';
-import history from '../../history';
 import StreamForm from './StreamForm';
+import requireAuth from '../requireAuth';
 
 class StreamEdit extends React.Component {
   componentDidMount() {
@@ -15,9 +15,6 @@ class StreamEdit extends React.Component {
   }
 
   render() {
-    if (this.props.isSignedIn === false)
-      history.push('/');
-
     if (!this.props.stream)
       return <div>Loading...</div>;
 
@@ -34,9 +31,8 @@ class StreamEdit extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isSignedIn: state.auth.isSignedIn,
     stream: state.streams[ownProps.match.params.id]
   };
 }
 
-export default connect(mapStateToProps, {fetchStream, editStream})(StreamEdit);
+export default connect(mapStateToProps, {fetchStream, editStream})(requireAuth(StreamEdit));

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import history from '../../history';
 import { fetchStream, deleteStream } from '../../actions';
 import Modal from '../Modal';
+import requireAuth from '../requireAuth';
 
 class StreamDelete extends React.Component {
   componentDidMount() {
@@ -29,9 +30,6 @@ class StreamDelete extends React.Component {
   }
 
   render() {
-    if (this.props.isSignedIn === false)
-      history.push('/');
-
     return (
       <Modal
         title="Delete Stream"
@@ -44,9 +42,8 @@ class StreamDelete extends React.Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    isSignedIn: state.auth.isSignedIn,
     stream: state.streams[ownProps.match.params.id]
   };
 }
 
-export default connect(mapStateToProps, {fetchStream, deleteStream})(StreamDelete);
+export default connect(mapStateToProps, {fetchStream, deleteStream})(requireAuth(StreamDelete));
