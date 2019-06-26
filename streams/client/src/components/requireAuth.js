@@ -5,8 +5,18 @@ import history from '../history';
 export default ChildComponent => {
   class ComposedComponent extends Component {
     checkAuth() {
-      if (this.props.isSignedIn === false)
+      if (this.props.isSignedIn === false) {
+        console.log("Force/");
         history.push('/');
+      }
+    }
+
+    componentWillMount() {
+      this.checkAuth();
+    }
+
+    componentWillUpdate() {
+      this.checkAuth();
     }
 
     componentDidMount() {
